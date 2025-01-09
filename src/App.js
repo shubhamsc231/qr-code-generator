@@ -8,9 +8,10 @@ function App() {
   };
   const [imagesrc, setimagesrc] = useState();
   const handleGenerateButton = async () => {
-    setimagesrc(
-      `http://api.qrserver.com/v1/create-qr-code/?data=${inputValue}!&size=400x400&bgcolor=white`
-    );
+    inputValue != "" &&
+      setimagesrc(
+        `http://api.qrserver.com/v1/create-qr-code/?data=${inputValue}!&size=400x400&bgcolor=white`
+      );
   };
   const handleLinkClick = (medium) => {
     switch (medium) {
@@ -20,8 +21,8 @@ function App() {
       case "facebook":
         setinputValue("www.facebook.com/");
         break;
-      case "twitter":
-        setinputValue("www.twitter.com/");
+      case "youtube":
+        setinputValue("www.youtube.com/");
         break;
       default:
         break;
@@ -30,25 +31,35 @@ function App() {
   return (
     <div className="App">
       <div className="HeadingTitle">QR Code Generator</div>
-      <div className="pageBody">
-        <div className="fieldContainer">
-          <input
-            type="text"
-            value={inputValue}
-            onChange={handleChange}
-            className="input-field"
-          />
-          <button className="generate-button" onClick={handleGenerateButton}>
-            Generate
-          </button>
-        </div>
-        <div>{imagesrc && <img src={imagesrc} alt="image" />}</div>
+      <div className="fieldContainer">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          className="input-field"
+        />
+        <button className="generate-button" onClick={handleGenerateButton}>
+          Generate
+        </button>
       </div>
-      <div>
-        <button onClick={() => handleLinkClick("instagram")}>Instagram</button>
-        <button onClick={() => handleLinkClick("twitter")}>Twitter</button>
-        <button onClick={() => handleLinkClick("facebook")}>Facebooks</button>
+      <div className="socialMediaBox">
+        <img
+          src={"./instagram.png"}
+          alt=""
+          onClick={() => handleLinkClick("instagram")}
+        ></img>
+        <img
+          src={"./youtube.png"}
+          alt=""
+          onClick={() => handleLinkClick("youtube")}
+        ></img>
+        <img
+          src={"./facebook.png"}
+          alt=""
+          onClick={() => handleLinkClick("facebook")}
+        ></img>
       </div>
+      <div>{imagesrc && <img src={imagesrc} alt="image" />}</div>
     </div>
   );
 }
